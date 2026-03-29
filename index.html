@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantheon Maker</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="icon" type="image/png" href="./image/icon.webp">
+</head>
+
+<body>
+    <div class="overlay" id="setting">
+        <a href="javascript:void(0)" id="close-setting" onclick="closeSettings()">&times;</a>
+        <div class="overlay-content">
+            <div class="setting">
+                <h3>Settings :</h3>
+                <label for="toggle-dlc">Toggle 4th Major God (DLC)<input type="checkbox" id="toggle-dlc" checked
+                        onchange="toggleDLC(this.checked)" autocomplete=off></label>
+
+                <label for="toggle-titan">Toggle Titan<input type="checkbox" id="toggle-titan" checked
+                        onchange="toggleTitan(this.checked)" autocomplete=off></label>
+
+                <label for="toggle-wonder">Toggle Wonder<input type="checkbox" id="toggle-wonder" checked
+                        onchange="toggleWonder(this.checked)" autocomplete=off></label>
+
+                <label for="toggle-power">Toggle God Power<input type="checkbox" id="toggle-power" checked
+                        onchange="togglePower(this.checked)" autocomplete=off></label>
+
+                <label for="toggle-myth">Toggle Myth Unit <input type="checkbox" id="toggle-myth" checked
+                        onchange="toggleMyth(this.checked)" autocomplete=off></label>
+
+                <button id="change-bg" onclick="document.getElementById('bg-input').click()">Change Background</button>
+                <input type="file" id="bg-input" style="display:none" accept="image/*"
+                    onchange="changeBackground(event)">
+
+                <button id="screenshot" onclick="screenshot()">Save as image</button>
+                <button id="save-json" onclick="saveJSON()">Save as JSON</button>
+                <button id="load-json" onclick="document.getElementById('json-file').click()">Load from JSON</button>
+                <input type="file" id="json-file" accept=".json" style="display:none" onchange="loadJSON(event)">
+
+                <a href="https://valentinzeller.github.io/pantheon_maker" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="pantheon">
+            <div id="open-setting" onclick="openSettings()">&#9881;</div>
+        </div>
+        <div id="pantheon-detail">
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
