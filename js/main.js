@@ -231,6 +231,19 @@ function toggleTitan(bool) {
     titan.style.display = bool ? 'flex' : 'none'
 }
 
+function toggleImage(bool) {
+    let portraits = document.querySelectorAll('.god-portrait')
+    let titan_portrait = document.querySelector('.titan-portrait')
+    let icons = document.querySelectorAll('.power-icon, .wonder-icon, .myth-icon')
+    let all = [...portraits, titan_portrait]
+    all.forEach(element => {
+        element.style.display = bool ? 'block' : 'none'
+    })
+    icons.forEach(element => {
+        element.style.display = bool ? 'inline' : 'none'
+    })
+}
+
 function openSettings() {
     document.getElementById("setting").style.width = "100%";
 }
