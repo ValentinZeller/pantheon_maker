@@ -317,13 +317,13 @@ function loadJSON(event) {
             if (godElement) {
                 godElement.querySelector('label[for="' + god.id + '"]').innerText = god.name
                 godElement.querySelector('.god-portrait img').src = god.img
-                godElement.querySelector('.power-name').innerText = god.power.name
+                godElement.querySelector('.power-name-label').innerText = god.power.name
                 godElement.querySelector('.power-detail img').src = god.power.img
                 if (god.type === 'major') {
-                    godElement.querySelector('.wonder-name').innerText = god.wonder.name
+                    godElement.querySelector('.wonder-name-label').innerText = god.wonder.name
                     godElement.querySelector('.wonder-detail img').src = god.wonder.img
                 } else {
-                    godElement.querySelector('.myth-name').innerText = god.myth.name
+                    godElement.querySelector('.myth-name-label').innerText = god.myth.name
                     godElement.querySelector('.myth-detail img').src = god.myth.img
                 }
             }
