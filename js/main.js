@@ -240,9 +240,9 @@ function closeSettings() {
 }
 
 function screenshot() {
-    html2canvas(document.getElementById('main'), {
+    html2canvas(document.getElementById('background'), {
         useCORS: true, allowTaint: true, ignoreElements: (element) => {
-            return element.id === 'open-setting'
+            return element.id === 'open-setting' || element.id === 'setting'
         }
     }).then(canvas => {
         let link = document.createElement('a')
@@ -256,7 +256,7 @@ function screenshot() {
 function saveJSON() {
     let data = {
         pantheonName: document.querySelector('.pantheon-name-label').innerText,
-        backgroundImage: document.body.style.backgroundImage,
+        backgroundImage: document.getElementById('background').style.backgroundImage,
         titan: {
             name: document.querySelector('.titan-name-label').innerText,
             img: document.querySelector('.titan-portrait img').src
@@ -309,7 +309,7 @@ function loadJSON(event) {
     reader.addEventListener('load', (load_evt) => {
         let data = JSON.parse(load_evt.target.result)
         document.querySelector('.pantheon-name-label').innerText = data.pantheonName
-        document.body.style.backgroundImage = data.backgroundImage
+        document.getElementById('background').style.backgroundImage = data.backgroundImage
         document.querySelector('.titan-name-label').innerText = data.titan.name
         document.querySelector('.titan-portrait img').src = data.titan.img
         data.gods.forEach(god => {
@@ -336,7 +336,7 @@ function changeBackground(event) {
     let file = event.target.files[0]
     let reader = new FileReader();
     reader.addEventListener('load', (load_evt) => {
-        document.body.style.backgroundImage = 'url(' + load_evt.target.result + ')'
+        document.getElementById('background').style.backgroundImage = 'url(' + load_evt.target.result + ')'
     });
     reader.readAsDataURL(file);
 }

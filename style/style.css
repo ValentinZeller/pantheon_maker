@@ -11,6 +11,10 @@ html {
 
 body {
     background-color: #232323;
+}
+
+#background {
+    background-color: #232323;
     background-image: url('../image/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -110,7 +114,6 @@ button {
     text-align: center;
 
     img {
-        width: 100px;
         height: 100px;
         object-fit: contain;
         cursor: pointer;
@@ -126,7 +129,6 @@ button {
 .wonder-icon,
 .power-icon,
 .myth-icon {
-    width: 36px;
     height: 36px;
     object-fit: contain;
     margin-left: 10px;
@@ -160,7 +162,6 @@ button {
     margin-left: 100px;
 
     .titan-portrait img {
-        width: 80px;
         height: 80px;
         object-fit: contain;
         cursor: pointer;
