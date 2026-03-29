@@ -158,7 +158,9 @@ function editableLabel(container, label, input, className) {
 
 function updateLabel(label, input) {
     input.style.display = 'none';
-    label.innerText = input.value;
+    if (input.value.trim() !== '') {
+        label.innerText = input.value;
+    }
     label.style.display = 'inline';
 }
 
