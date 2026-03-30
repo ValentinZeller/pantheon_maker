@@ -3,18 +3,19 @@
     src: url(Baskervville-Regular.ttf) format('truetype');
 }
 
+:root {
+    --main-color: #2b2a2ae3;
+    --text-color: #fff;
+    --age-color: rgb(215, 199, 172);
+}
+
 html {
     background-color: #232323;
-    color: #fff;
+    color: var(--text-color);
     font-family: 'Baskervville', serif;
 }
 
-body {
-    background-color: #232323;
-}
-
 #background {
-    background-color: #232323;
     background-image: url('../image/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,7 +28,6 @@ input {
     color: inherit;
     background-color: #232323;
     border: none;
-    border-bottom: 1px solid #fff;
     width: fit-content;
 }
 
@@ -48,6 +48,32 @@ button {
     }
 }
 
+#change-color {
+    background-color: var(--main-color);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--main-color) 20%, #575757);
+    }
+}
+
+#change-text-color {
+    background-color: var(--text-color);
+    color: #232323;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--text-color) 20%, #575757);
+    }
+}
+
+#change-age-color {
+    background-color: var(--age-color);
+    color: #232323;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--age-color) 20%, #575757);
+    }
+}
+
 #main {
     background-color: #5b5b5bb0;
 }
@@ -56,12 +82,13 @@ button {
     font-size: xxx-large;
     text-align: center;
     display: flex;
-    background: #2b2a2ae3;
+    background: var(--main-color);
     justify-content: space-between;
 }
 
 .pantheon-name {
     align-self: center;
+    margin-left: 5px;
 }
 
 #pantheon-detail {
@@ -74,7 +101,7 @@ button {
     grid-auto-flow: column;
 
     &>div {
-        background: #2b2a2ae3;
+        background: var(--main-color);
         padding: 10px;
     }
 }
@@ -276,9 +303,9 @@ button {
     cursor: pointer;
     font-weight: bold;
     padding: 5px 10px;
-    background-color: #3b3b3b;
+    background-color: #2929298a;
 
     &:hover {
-        background-color: #575757;
+        background-color: #57575788;
     }
 }

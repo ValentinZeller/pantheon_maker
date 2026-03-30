@@ -272,6 +272,9 @@ function saveJSON() {
     let data = {
         pantheonName: document.querySelector('.pantheon-name-label').innerText,
         backgroundImage: document.getElementById('background').style.backgroundImage,
+        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--main-color'),
+        textColor: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
+        ageColor: getComputedStyle(document.documentElement).getPropertyValue('--age-color'),
         titan: {
             name: document.querySelector('.titan-name-label').innerText,
             img: document.querySelector('.titan-portrait img').src
@@ -325,6 +328,9 @@ function loadJSON(event) {
         let data = JSON.parse(load_evt.target.result)
         document.querySelector('.pantheon-name-label').innerText = data.pantheonName
         document.getElementById('background').style.backgroundImage = data.backgroundImage
+        document.documentElement.style.setProperty('--main-color', data.backgroundColor)
+        document.documentElement.style.setProperty('--text-color', data.textColor)
+        document.documentElement.style.setProperty('--age-color', data.ageColor)
         document.querySelector('.titan-name-label').innerText = data.titan.name
         document.querySelector('.titan-portrait img').src = data.titan.img
         data.gods.forEach(god => {
@@ -354,4 +360,16 @@ function changeBackground(event) {
         document.getElementById('background').style.backgroundImage = 'url(' + load_evt.target.result + ')'
     });
     reader.readAsDataURL(file);
+}
+
+function changeColor(event) {
+    document.documentElement.style.setProperty('--main-color', event.target.value + 'e3')
+}
+
+function changeTextColor(event) {
+    document.documentElement.style.setProperty('--text-color', event.target.value)
+}
+
+function changeAgeColor(event) {
+    document.documentElement.style.setProperty('--age-color', event.target.value)
 }
