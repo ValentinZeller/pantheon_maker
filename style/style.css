@@ -22,7 +22,8 @@ html {
     background-position: 50% 50%;
 }
 
-input {
+input,
+textarea {
     font-size: inherit;
     font-family: inherit;
     color: inherit;
@@ -133,7 +134,8 @@ button {
 .myth-name {
     margin-left: 10px;
 
-    & input {
+    & input,
+    textarea {
         display: none;
     }
 }

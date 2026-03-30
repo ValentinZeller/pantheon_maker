@@ -127,7 +127,7 @@ function createEditableLabel(id, className, value) {
     label.innerText = value
     container.appendChild(label)
 
-    let input = createClass('input', className + '-input')
+    let input = createClass('textarea', className + '-input')
     input.id = 'input-name-' + id
     container.appendChild(input)
 
