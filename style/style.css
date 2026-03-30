@@ -115,6 +115,7 @@ button {
 
     img {
         height: 100px;
+        max-width: 250px;
         object-fit: contain;
         cursor: pointer;
     }
@@ -130,6 +131,7 @@ button {
 .power-icon,
 .myth-icon {
     height: 36px;
+    max-width: 250px;
     object-fit: contain;
     margin-left: 10px;
     text-align: center;
@@ -165,6 +167,7 @@ button {
         height: 80px;
         object-fit: contain;
         cursor: pointer;
+        max-width: 250px;
     }
 
     .titan-detail {
