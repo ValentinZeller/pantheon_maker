@@ -256,9 +256,7 @@ function closeSettings() {
 
 function screenshot() {
     html2canvas(document.getElementById('background'), {
-        useCORS: true, allowTaint: true, ignoreElements: (element) => {
-            return element.id === 'open-setting' || element.id === 'setting'
-        }
+        useCORS: true, allowTaint: true
     }).then(canvas => {
         let link = document.createElement('a')
         link.dataset.html2canvasIgnore = 'true'
