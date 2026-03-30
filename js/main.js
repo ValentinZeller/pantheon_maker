@@ -254,16 +254,9 @@ function closeSettings() {
     document.getElementById("setting").style.width = "0%";
 }
 
-function screenshot() {
-    html2canvas(document.getElementById('background'), {
-        useCORS: true, allowTaint: true
-    }).then(canvas => {
-        let link = document.createElement('a')
-        link.dataset.html2canvasIgnore = 'true'
-        link.download = 'pantheon.png'
-        link.href = canvas.toDataURL()
-        link.click()
-    })
+async function screenshot() {
+    const result = await snapdom(document.getElementById('background'), { embedFonts: true, localFonts: [{ 'family': 'Baskervville', 'src': 'url(./style/Baskervville-Regular.ttf)' }] })
+    await result.download({ format: 'jpg', filename: 'pantheon.jpg' });
 }
 
 function saveJSON() {

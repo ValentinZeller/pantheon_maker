@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Pantheon Maker</title>
     <link rel="stylesheet" href="./style/style.css">
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/@zumer/snapdom/dist/snapdom.js"></script>
+
     <link rel="icon" type="image/png" href="./image/icon.webp">
 </head>
 
@@ -53,7 +54,7 @@
                 <input type="color" id="age-color-picker" value="#d7c7ac" onchange="changeAgeColor(event)"
                     style="display:none">
 
-                <button id="screenshot" onclick="screenshot()">Save as image</button>
+                <button id="screenshot" onclick="screenshot()">Save as Image</button>
                 <button id="save-json" onclick="saveJSON()">Save as JSON</button>
                 <button id="load-json" onclick="document.getElementById('json-file').click()">Load from JSON</button>
                 <input type="file" id="json-file" accept=".json" style="display:none" onchange="loadJSON(event)">
