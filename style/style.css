@@ -57,11 +57,11 @@ button {
     text-align: center;
     display: flex;
     background: #2b2a2ae3;
+    justify-content: space-between;
 }
 
 .pantheon-name {
     align-self: center;
-    margin-left: 250px;
 }
 
 #pantheon-detail {
@@ -161,7 +161,7 @@ button {
 .titan {
     margin-top: 10px;
     display: flex;
-    margin-left: 100px;
+    margin-right: 50px;
 
     .titan-portrait img {
         height: 80px;
@@ -228,22 +228,22 @@ button {
     position: relative;
     margin-left: 10px;
     color: white;
-    width: 90%;
+    width: 80%;
 
     .setting {
-        display: flex;
-        flex-wrap: wrap;
         margin: 20px;
-        width: 247px;
+
+        &>* {
+            display: block;
+        }
     }
 
     label {
         margin-bottom: 10px;
-        display: inline-block;
         border: 1px solid white;
-        margin-right: 1rem;
         padding: 0.5em;
         cursor: pointer;
+        width: fit-content;
     }
 
     label:has(input[type=checkbox]):hover {
@@ -267,17 +267,6 @@ button {
         outline: none;
         border: 1px solid transparent;
         background-color: transparent;
-    }
-}
-
-@media screen and (max-height: 450px) {
-    .overlay a {
-        font-size: 20px
-    }
-
-    .overlay #close-setting {
-        font-size: 40px;
-        right: 35px;
     }
 }
 
