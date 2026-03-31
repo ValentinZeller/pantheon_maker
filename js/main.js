@@ -229,8 +229,10 @@ function toggleMyth(bool) {
 }
 
 function toggleTitan(bool) {
-    let titan = document.querySelector('.titan')
-    titan.style.display = bool ? 'flex' : 'none'
+    let titan_portrait = document.querySelector('.titan-portrait')
+    let titan_detail = document.querySelector('.titan-detail')
+    titan_portrait.style.display = bool ? 'block' : 'none'
+    titan_detail.style.display = bool ? 'block' : 'none'
 }
 
 function toggleImage(bool) {
