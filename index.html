@@ -31,33 +31,42 @@
                 <label for="toggle-myth">Toggle Myth Unit <input type="checkbox" id="toggle-myth" checked
                         onchange="toggleMyth(this.checked)" autocomplete=off></label>
 
+                <label for="toggle-naval-myth">Toggle Naval Myth <input type="checkbox" id="toggle-naval-myth" checked
+                        onchange="toggleNavalMyth(this.checked)" autocomplete=off></label>
+
                 <label for="toggle-image">Toggle Images<input type="checkbox" id="toggle-image" checked
                         onchange="toggleImage(this.checked)" autocomplete=off></label>
+                <div>
+                    <button id="change-bg" onclick="document.getElementById('bg-input').click()">Change Background
+                        Image</button>
+                    <input type="file" id="bg-input" style="display:none" accept="image/*"
+                        onchange="changeBackground(event)">
 
-                <button id="change-bg" onclick="document.getElementById('bg-input').click()">Change Background
-                    Image</button>
-                <input type="file" id="bg-input" style="display:none" accept="image/*"
-                    onchange="changeBackground(event)">
+                    <button id="change-color" onclick="document.getElementById('color-picker').click()">Change
+                        Background
+                        Color</button>
+                    <input type="color" id="color-picker" value="#2b2a2a" onchange="changeColor(event)"
+                        style="display:none">
+                </div>
+                <div>
+                    <button id="change-text-color" onclick="document.getElementById('text-color-picker').click()">Change
+                        Text Color</button>
+                    <input type="color" id="text-color-picker" value="#fff" onchange="changeTextColor(event)"
+                        style="display:none">
 
-                <button id="change-color" onclick="document.getElementById('color-picker').click()">Change Background
-                    Color</button>
-                <input type="color" id="color-picker" value="#2b2a2a" onchange="changeColor(event)"
-                    style="display:none">
-
-                <button id="change-text-color" onclick="document.getElementById('text-color-picker').click()">Change
-                    Text Color</button>
-                <input type="color" id="text-color-picker" value="#fff" onchange="changeTextColor(event)"
-                    style="display:none">
-
-                <button id="change-age-color" onclick="document.getElementById('age-color-picker').click()">Change Age
-                    Color</button>
-                <input type="color" id="age-color-picker" value="#d7c7ac" onchange="changeAgeColor(event)"
-                    style="display:none">
-
+                    <button id="change-age-color" onclick="document.getElementById('age-color-picker').click()">Change
+                        Age
+                        Color</button>
+                    <input type="color" id="age-color-picker" value="#d7c7ac" onchange="changeAgeColor(event)"
+                        style="display:none">
+                </div>
                 <button id="screenshot" onclick="screenshot()">Save as Image</button>
-                <button id="save-json" onclick="saveJSON()">Save as JSON</button>
-                <button id="load-json" onclick="document.getElementById('json-file').click()">Load from JSON</button>
-                <input type="file" id="json-file" accept=".json" style="display:none" onchange="loadJSON(event)">
+                <div>
+                    <button id="save-json" onclick="saveJSON()">Save as JSON</button>
+                    <button id="load-json" onclick="document.getElementById('json-file').click()">Load from
+                        JSON</button>
+                    <input type="file" id="json-file" accept=".json" style="display:none" onchange="loadJSON(event)">
+                </div>
 
                 <a href="https://github.com/ValentinZeller/pantheon_maker" target="_blank">GitHub</a>
             </div>

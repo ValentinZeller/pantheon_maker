@@ -11,6 +11,8 @@ const IMG_WONDER = './image/wonder.webp'
 const IMG_MINOR = './image/minor.webp'
 const IMG_MINOR_POWER = './image/minor_power.webp'
 const IMG_MYTH = './image/myth.webp'
+const IMG_HEROIC_NAVAL = './image/heroic_naval.webp'
+const IMG_MYTHIC_NAVAL = './image/mythic_naval.webp'
 
 let pantheon = document.getElementById('pantheon')
 pantheon.appendChild(createEditableLabel('pantheon-name', 'pantheon-name', 'My Pantheon'))
@@ -42,6 +44,9 @@ function createAge(id, imgSrc) {
     span.innerText = firstUcase(id) + ' Age'
     age.appendChild(span)
     age.id = id;
+    if (id === 'heroic' || id === 'mythic') {
+        age.appendChild(createNavalMyth(id))
+    }
     return age
 }
 
@@ -238,7 +243,7 @@ function toggleTitan(bool) {
 function toggleImage(bool) {
     let portraits = document.querySelectorAll('.god-portrait')
     let titan_portrait = document.querySelector('.titan-portrait')
-    let icons = document.querySelectorAll('.power-icon, .wonder-icon, .myth-icon')
+    let icons = document.querySelectorAll('.power-icon, .wonder-icon, .myth-icon .naval-myth-icon')
     let all = [...portraits, titan_portrait]
     all.forEach(element => {
         element.style.display = bool ? 'block' : 'none'
@@ -268,6 +273,16 @@ function saveJSON() {
         backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--main-color'),
         textColor: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
         ageColor: getComputedStyle(document.documentElement).getPropertyValue('--age-color'),
+        navalMyths: {
+            heroic: {
+                name: document.querySelector('.heroic .naval-myth-name-label').innerText,
+                img: document.querySelector('.heroic .naval-myth-icon').src
+            },
+            mythic: {
+                name: document.querySelector('.mythic .naval-myth-name-label').innerText,
+                img: document.querySelector('.mythic .naval-myth-icon').src
+            }
+        },
         titan: {
             name: document.querySelector('.titan-name-label').innerText,
             img: document.querySelector('.titan-portrait img').src
@@ -326,6 +341,14 @@ function loadJSON(event) {
         document.documentElement.style.setProperty('--age-color', data.ageColor)
         document.querySelector('.titan-name-label').innerText = data.titan.name
         document.querySelector('.titan-portrait img').src = data.titan.img
+        if (data.navalMyths.heroic) {
+            document.querySelector('.heroic .naval-myth-name-label').innerText = data.navalMyths.heroic.name
+            document.querySelector('.heroic .naval-myth-icon').src = data.navalMyths.heroic.img
+        }
+        if (data.navalMyths.mythic) {
+            document.querySelector('.mythic .naval-myth-name-label').innerText = data.navalMyths.mythic.name
+            document.querySelector('.mythic .naval-myth-icon').src = data.navalMyths.mythic.img
+        }
         data.gods.forEach(god => {
             let godElement = document.querySelector('#' + god.type + '-' + god.id)
             if (godElement) {
@@ -365,4 +388,31 @@ function changeTextColor(event) {
 
 function changeAgeColor(event) {
     document.documentElement.style.setProperty('--age-color', event.target.value)
+}
+
+function createNavalMyth(age) {
+    let navalMyth = createClass('div', 'naval-myth')
+    let imgInput = createClass('input', 'load-img-input')
+    imgInput.type = 'file'
+    imgInput.accept = 'image/*'
+    let img;
+    if (age === 'heroic') {
+        img = createImgSrc(IMG_HEROIC_NAVAL)
+    } else if (age === 'mythic') {
+        img = createImgSrc(IMG_MYTHIC_NAVAL)
+    }
+    img.classList.add('naval-myth-icon')
+    editableImg(navalMyth, img, imgInput)
+    navalMyth.appendChild(imgInput)
+    navalMyth.appendChild(img)
+    let detail = createEditableLabel(age, 'naval-myth-name', firstUcase(age) + ' Naval Myth')
+    navalMyth.appendChild(detail)
+    return navalMyth
+}
+
+function toggleNavalMyth(bool) {
+    let navalMyths = document.querySelectorAll('.naval-myth')
+    navalMyths.forEach(element => {
+        element.style.display = bool ? 'block' : 'none'
+    })
 }

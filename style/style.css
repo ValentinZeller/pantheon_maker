@@ -112,12 +112,16 @@ button {
     font-size: large;
     align-content: center;
     text-align: center;
-    color: rgb(215, 199, 172);
+    color: var(--age-color);
 
     & .age-icon {
         width: 150px;
         height: 150px;
         object-fit: contain;
+    }
+
+    .naval-myth-name-label {
+        color: var(--text-color);
     }
 }
 
@@ -159,7 +163,8 @@ button {
 
 .wonder-icon,
 .power-icon,
-.myth-icon {
+.myth-icon,
+.naval-myth-icon {
     height: 36px;
     max-width: 250px;
     object-fit: contain;
@@ -170,7 +175,8 @@ button {
 
 .god-name-input,
 .pantheon-name-input,
-.titan-name-input {
+.titan-name-input,
+.naval-myth-name-input {
     display: none;
 }
 
@@ -212,7 +218,8 @@ button {
 .titan-name-label,
 .power-name-label,
 .wonder-name-label,
-.myth-name-label {
+.myth-name-label,
+.naval-myth-name-label {
     cursor: pointer;
 }
 
