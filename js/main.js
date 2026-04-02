@@ -15,8 +15,8 @@ const IMG_HEROIC_NAVAL = './image/heroic_naval.webp'
 const IMG_MYTHIC_NAVAL = './image/mythic_naval.webp'
 
 let pantheon = document.getElementById('pantheon')
-pantheon.appendChild(createEditableLabel('pantheon-name', 'pantheon-name', 'My Pantheon'))
-pantheon.appendChild(createTitan())
+pantheon.appendChild(createEditableLabel('pantheon', 'pantheon', 'My Pantheon'))
+pantheon.appendChild(createElement('titan', 'titan', IMG_TITAN, 'Titan'))
 
 let pantheon_detail = document.getElementById('pantheon-detail')
 AGES.forEach(age => {
@@ -37,78 +37,52 @@ function createClass(type, className) {
 
 function createAge(id, imgSrc) {
     let age = createClass('div', 'age')
-    let img = createImgSrc(imgSrc)
-    img.classList.add('age-icon')
-    age.appendChild(img)
+    age.appendChild(createImgSrc(imgSrc, 'age'))
     let span = createClass('span', 'age-name')
     span.innerText = firstUcase(id) + ' Age'
     age.appendChild(span)
     age.id = id;
     if (id === 'heroic' || id === 'mythic') {
-        age.appendChild(createNavalMyth(id))
+        let value = firstUcase(id) + ' Naval Myth'
+        let imgSrc = id === 'heroic' ? IMG_HEROIC_NAVAL : IMG_MYTHIC_NAVAL
+        age.appendChild(createElement(id, 'naval-myth', imgSrc, value))
     }
     return age
 }
 
-function createTitan() {
-    let titan = createClass('div', 'titan')
-    let imgSrc = IMG_TITAN
-    let titan_portrait = createEditableImg('titan', imgSrc)
-    let titan_detail = createClass('div', 'titan-detail')
-    let titan_name = createEditableLabel('titan-name', 'titan-name', 'Titan')
-    titan_detail.appendChild(titan_name)
-    titan.appendChild(titan_portrait)
-    titan.appendChild(titan_detail)
-    return titan
-}
-
 function createGod(id, type) {
-    let god = createClass('div', type + '-god')
-    god.id = type + '-' + id
     let imgSrc = type === 'major' ? IMG_MAJOR : IMG_MINOR
-    let god_portrait = createEditableImg('god', imgSrc)
-    let god_detail = createClass('div', 'god-detail')
-    let god_name = createEditableLabel(id, 'god-name', firstUcase(type) + ' God')
-    god_detail.appendChild(god_name)
-    god.appendChild(god_portrait)
-    god.appendChild(god_detail)
+    let value = firstUcase(type) + ' God'
+    let god = createElement(id, 'god', imgSrc, value)
+    god.id = type + '-' + id
 
-    let power_detail = createSubPart(id, 'power')
-    god.appendChild(power_detail)
+    imgSrc = id < 10 ? IMG_MAJOR_POWER : IMG_MINOR_POWER
+    god.appendChild(createElement(id, 'power', imgSrc, 'Power'))
     if (type === 'major') {
-        let wonder_detail = createSubPart(id, 'wonder')
-        god.appendChild(wonder_detail)
+        imgSrc = IMG_WONDER
+        god.appendChild(createElement(id, 'wonder', imgSrc, 'Wonder'))
     } else {
-        let myth_detail = createSubPart(id, 'myth')
-        god.appendChild(myth_detail)
+        imgSrc = IMG_MYTH
+        god.appendChild(createElement(id, 'myth', imgSrc, 'Myth'))
     }
     return god
 }
 
-function createSubPart(id, type) {
-    let subPart = createClass('div', type + '-detail')
-    let imgSrc = '';
-    switch (type) {
-        case 'power':
-            imgSrc = id < 10 ? IMG_MAJOR_POWER : IMG_MINOR_POWER
-            break;
-        case 'wonder':
-            imgSrc = IMG_WONDER
-            break;
-        case 'myth':
-            imgSrc = IMG_MYTH
-            break;
-    }
-    subPart.appendChild(createEditableImg(type, imgSrc))
-    let subPart_name = createEditableLabel(id, type + '-name', firstUcase(type))
-    subPart.appendChild(subPart_name)
-    return subPart
+function createElement(id, type, imgSrc, value) {
+    let container = createClass('div', type)
+    container.appendChild(createEditableImg(type, imgSrc))
+    container.appendChild(createEditableLabel(id, type, value))
+    return container
+}
+
+function firstUcase(text) {
+    return text[0].toUpperCase() + text.slice(1)
 }
 
 function createEditableLabel(id, className, value) {
-    let container = createClass('div', className)
+    let container = createClass('div', className + '-name')
 
-    let label = createClass('label', className + '-label')
+    let label = createClass('label', className + '-name-label')
     label.htmlFor = id
     label.innerText = value
     container.appendChild(label)
@@ -150,9 +124,10 @@ function updateLabel(label, input) {
     label.style.display = 'inline';
 }
 
-function createImgSrc(src) {
+function createImgSrc(src, className) {
     let img = document.createElement('img');
     img.src = src;
+    img.classList.add(className + '-icon')
     return img;
 }
 
@@ -178,29 +153,9 @@ function createEditableImg(className, src) {
     let imgInput = createClass('input', 'load-img-input')
     imgInput.type = 'file'
     imgInput.accept = 'image/*'
-    let img = createImgSrc(src)
-    img.classList.add(className + '-icon')
+    let img = createImgSrc(src, className)
     editableImg(container, img, imgInput, className)
     container.appendChild(imgInput)
     container.appendChild(img)
     return container
-}
-
-function firstUcase(text) {
-    return text[0].toUpperCase() + text.slice(1)
-}
-
-function createNavalMyth(age) {
-    let navalMyth = createClass('div', 'naval-myth')
-    let src;
-    if (age === 'heroic') {
-        src = IMG_HEROIC_NAVAL
-    } else if (age === 'mythic') {
-        src = IMG_MYTHIC_NAVAL
-    }
-    let portrait = createEditableImg('naval-myth', src)
-    let detail = createEditableLabel(age, 'naval-myth-name', firstUcase(age) + ' Naval Myth')
-    navalMyth.appendChild(portrait)
-    navalMyth.appendChild(detail)
-    return navalMyth
 }

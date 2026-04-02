@@ -125,9 +125,9 @@ button {
     }
 }
 
-.power-detail,
-.wonder-detail,
-.myth-detail {
+.power,
+.wonder,
+.myth {
     text-align: center;
     margin-top: 5px;
 }
@@ -156,8 +156,8 @@ button {
 
 }
 
-.god-detail,
-.titan-detail {
+.god-name,
+.titan-name {
     text-align: center;
 }
 
@@ -173,20 +173,20 @@ button {
     cursor: pointer;
 }
 
-.god-name-input,
-.pantheon-name-input,
-.titan-name-input,
-.naval-myth-name-input,
+.god-input,
+.pantheon-input,
+.titan-input,
+.naval-myth-input,
 .load-img-input {
     display: none;
 }
 
-.pantheon-name-input {
+.pantheon-input {
     font-size: xx-large;
     text-align: center;
 }
 
-.titan-name-input {
+.titan-input {
     font-size: x-large;
     text-align: center;
 }
@@ -203,7 +203,7 @@ button {
         max-width: 250px;
     }
 
-    .titan-detail {
+    .titan-name {
         margin-left: 20px;
         align-self: center;
         font-size: xx-large;

@@ -29,27 +29,27 @@ function toggleDLC(bool) {
 
 function toggleTitan(bool) {
     let titan_portrait = document.querySelector('.titan-portrait')
-    let titan_detail = document.querySelector('.titan-detail')
+    let titan_name = document.querySelector('.titan-name')
     titan_portrait.style.display = bool ? 'block' : 'none'
-    titan_detail.style.display = bool ? 'block' : 'none'
+    titan_name.style.display = bool ? 'block' : 'none'
 }
 
 function toggleWonder(bool) {
-    let wonders = document.querySelectorAll('.wonder-detail')
+    let wonders = document.querySelectorAll('.wonder')
     wonders.forEach(element => {
         element.style.display = bool ? 'block' : 'none'
     })
 }
 
 function togglePower(bool) {
-    let powers = document.querySelectorAll('.power-detail')
+    let powers = document.querySelectorAll('.power')
     powers.forEach(element => {
         element.style.display = bool ? 'block' : 'none'
     })
 }
 
 function toggleMyth(bool) {
-    let myths = document.querySelectorAll('.myth-detail')
+    let myths = document.querySelectorAll('.myth')
     myths.forEach(element => {
         element.style.display = bool ? 'block' : 'none'
     })
