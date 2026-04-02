@@ -52,14 +52,8 @@ function createAge(id, imgSrc) {
 
 function createTitan() {
     let titan = createClass('div', 'titan')
-    let titan_portrait = createClass('div', 'titan-portrait')
-    let imgInput = createClass('input', 'load-img-input')
-    imgInput.type = 'file'
-    imgInput.accept = 'image/*'
-    let img = createImgSrc(IMG_TITAN)
-    editableImg(titan_portrait, img, imgInput)
-    titan_portrait.appendChild(imgInput)
-    titan_portrait.appendChild(img)
+    let imgSrc = IMG_TITAN
+    let titan_portrait = createEditableImg('titan', imgSrc)
     let titan_detail = createClass('div', 'titan-detail')
     let titan_name = createEditableLabel('titan-name', 'titan-name', 'Titan')
     titan_detail.appendChild(titan_name)
@@ -71,14 +65,8 @@ function createTitan() {
 function createGod(id, type) {
     let god = createClass('div', type + '-god')
     god.id = type + '-' + id
-    let god_portrait = createClass('div', 'god-portrait')
-    let imgInput = createClass('input', 'load-img-input')
-    imgInput.type = 'file'
-    imgInput.accept = 'image/*'
-    let img = createImgSrc(type === 'major' ? IMG_MAJOR : IMG_MINOR)
-    editableImg(god_portrait, img, imgInput)
-    god_portrait.appendChild(imgInput)
-    god_portrait.appendChild(img)
+    let imgSrc = type === 'major' ? IMG_MAJOR : IMG_MINOR
+    let god_portrait = createEditableImg('god', imgSrc)
     let god_detail = createClass('div', 'god-detail')
     let god_name = createEditableLabel(id, 'god-name', firstUcase(type) + ' God')
     god_detail.appendChild(god_name)
@@ -99,9 +87,6 @@ function createGod(id, type) {
 
 function createSubPart(id, type) {
     let subPart = createClass('div', type + '-detail')
-    let imgInput = createClass('input', 'load-img-input')
-    imgInput.type = 'file'
-    imgInput.accept = 'image/*'
     let imgSrc = '';
     switch (type) {
         case 'power':
@@ -114,11 +99,7 @@ function createSubPart(id, type) {
             imgSrc = IMG_MYTH
             break;
     }
-    let img = createImgSrc(imgSrc)
-    img.classList.add(type + '-icon')
-    editableImg(img, img, imgInput)
-    subPart.appendChild(imgInput)
-    subPart.appendChild(img)
+    subPart.appendChild(createEditableImg(type, imgSrc))
     let subPart_name = createEditableLabel(id, type + '-name', firstUcase(type))
     subPart.appendChild(subPart_name)
     return subPart
@@ -175,9 +156,9 @@ function createImgSrc(src) {
     return img;
 }
 
-function editableImg(container, img, input) {
+function editableImg(container, img, input, className) {
     container.addEventListener('click', (e) => {
-        if (e.target.classList.value === 'god-portrait' && input.style.display === 'inline') {
+        if (e.target.classList.value === className + '-portrait' && input.style.display === 'inline') {
         } else {
             input.click()
         }
@@ -188,231 +169,38 @@ function editableImg(container, img, input) {
         reader.addEventListener('load', (load_evt) => {
             img.src = load_evt.target.result
         });
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
     })
+}
+
+function createEditableImg(className, src) {
+    let container = createClass('div', className + '-portrait')
+    let imgInput = createClass('input', 'load-img-input')
+    imgInput.type = 'file'
+    imgInput.accept = 'image/*'
+    let img = createImgSrc(src)
+    img.classList.add(className + '-icon')
+    editableImg(container, img, imgInput, className)
+    container.appendChild(imgInput)
+    container.appendChild(img)
+    return container
 }
 
 function firstUcase(text) {
     return text[0].toUpperCase() + text.slice(1)
 }
 
-function toggleDLC(bool) {
-    let major_four = document.getElementById('major-4')
-    let minor_four1 = document.getElementById('minor-41')
-    let minor_four2 = document.getElementById('minor-42')
-    let minor_four3 = document.getElementById('minor-43')
-    let dlc = [major_four, minor_four1, minor_four2, minor_four3]
-    dlc.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
-    if (bool) {
-        pantheon_detail.style.gridTemplateColumns = '1fr repeat(4, 2fr)'
-    } else {
-        pantheon_detail.style.gridTemplateColumns = '1fr repeat(3, 2fr)'
-    }
-}
-
-function togglePower(bool) {
-    let powers = document.querySelectorAll('.power-detail')
-    powers.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
-}
-
-function toggleWonder(bool) {
-    let wonders = document.querySelectorAll('.wonder-detail')
-    wonders.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
-}
-
-function toggleMyth(bool) {
-    let myths = document.querySelectorAll('.myth-detail')
-    myths.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
-}
-
-function toggleTitan(bool) {
-    let titan_portrait = document.querySelector('.titan-portrait')
-    let titan_detail = document.querySelector('.titan-detail')
-    titan_portrait.style.display = bool ? 'block' : 'none'
-    titan_detail.style.display = bool ? 'block' : 'none'
-}
-
-function toggleImage(bool) {
-    let portraits = document.querySelectorAll('.god-portrait')
-    let titan_portrait = document.querySelector('.titan-portrait')
-    let icons = document.querySelectorAll('.power-icon, .wonder-icon, .myth-icon .naval-myth-icon')
-    let all = [...portraits, titan_portrait]
-    all.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
-    icons.forEach(element => {
-        element.style.display = bool ? 'inline' : 'none'
-    })
-}
-
-function openSettings() {
-    document.getElementById("setting").style.width = "100%";
-}
-
-function closeSettings() {
-    document.getElementById("setting").style.width = "0%";
-}
-
-async function screenshot() {
-    const result = await snapdom(document.getElementById('background'), { embedFonts: true, localFonts: [{ 'family': 'Baskervville', 'src': 'url(./style/Baskervville-Regular.ttf)' }] })
-    await result.download({ format: 'jpg', filename: 'pantheon.jpg' });
-}
-
-function saveJSON() {
-    let data = {
-        pantheonName: document.querySelector('.pantheon-name-label').innerText,
-        backgroundImage: document.getElementById('background').style.backgroundImage,
-        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--main-color'),
-        textColor: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
-        ageColor: getComputedStyle(document.documentElement).getPropertyValue('--age-color'),
-        navalMyths: {
-            heroic: {
-                name: document.querySelector('.heroic .naval-myth-name-label').innerText,
-                img: document.querySelector('.heroic .naval-myth-icon').src
-            },
-            mythic: {
-                name: document.querySelector('.mythic .naval-myth-name-label').innerText,
-                img: document.querySelector('.mythic .naval-myth-icon').src
-            }
-        },
-        titan: {
-            name: document.querySelector('.titan-name-label').innerText,
-            img: document.querySelector('.titan-portrait img').src
-        },
-        gods: []
-    }
-    for (let i = 1; i <= MAJOR; i++) {
-        let god = {
-            id: i,
-            type: 'major',
-            name: document.querySelector('label[for="' + i + '"]').innerText,
-            img: document.querySelector('#major-' + i + ' .god-portrait img').src,
-            power: {
-                name: document.querySelector('#major-' + i + ' .power-name').innerText,
-                img: document.querySelector('#major-' + i + ' .power-detail img').src
-            },
-            wonder: {
-                name: document.querySelector('#major-' + i + ' .wonder-name').innerText,
-                img: document.querySelector('#major-' + i + ' .wonder-detail img').src
-            }
-        }
-        data.gods.push(god)
-        for (let j = 1; j <= MINOR; j++) {
-            let minorGod = {
-                id: i + '' + j,
-                type: 'minor',
-                name: document.querySelector('label[for="' + i + j + '"]').innerText,
-                img: document.querySelector('#minor-' + i + '' + j + ' .god-portrait img').src,
-                power: {
-                    name: document.querySelector('#minor-' + i + '' + j + ' .power-name').innerText,
-                    img: document.querySelector('#minor-' + i + '' + j + ' .power-detail img').src
-                },
-                myth: {
-                    name: document.querySelector('#minor-' + i + '' + j + ' .myth-name').innerText,
-                    img: document.querySelector('#minor-' + i + '' + j + ' .myth-detail img').src
-                }
-            }
-            data.gods.push(minorGod)
-        }
-    }
-    let link = document.createElement('a')
-    link.download = 'pantheon.json'
-    link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data))
-    link.click()
-}
-
-function loadJSON(event) {
-    let file = event.target.files[0]
-    let reader = new FileReader();
-    reader.addEventListener('load', (load_evt) => {
-        let data = JSON.parse(load_evt.target.result)
-        document.querySelector('.pantheon-name-label').innerText = data.pantheonName
-        document.getElementById('background').style.backgroundImage = data.backgroundImage
-        document.documentElement.style.setProperty('--main-color', data.backgroundColor)
-        document.documentElement.style.setProperty('--text-color', data.textColor)
-        document.documentElement.style.setProperty('--age-color', data.ageColor)
-        document.querySelector('.titan-name-label').innerText = data.titan.name
-        document.querySelector('.titan-portrait img').src = data.titan.img
-        if (data.navalMyths.heroic) {
-            document.querySelector('.heroic .naval-myth-name-label').innerText = data.navalMyths.heroic.name
-            document.querySelector('.heroic .naval-myth-icon').src = data.navalMyths.heroic.img
-        }
-        if (data.navalMyths.mythic) {
-            document.querySelector('.mythic .naval-myth-name-label').innerText = data.navalMyths.mythic.name
-            document.querySelector('.mythic .naval-myth-icon').src = data.navalMyths.mythic.img
-        }
-        data.gods.forEach(god => {
-            let godElement = document.querySelector('#' + god.type + '-' + god.id)
-            if (godElement) {
-                godElement.querySelector('label[for="' + god.id + '"]').innerText = god.name
-                godElement.querySelector('.god-portrait img').src = god.img
-                godElement.querySelector('.power-name-label').innerText = god.power.name
-                godElement.querySelector('.power-detail img').src = god.power.img
-                if (god.type === 'major') {
-                    godElement.querySelector('.wonder-name-label').innerText = god.wonder.name
-                    godElement.querySelector('.wonder-detail img').src = god.wonder.img
-                } else {
-                    godElement.querySelector('.myth-name-label').innerText = god.myth.name
-                    godElement.querySelector('.myth-detail img').src = god.myth.img
-                }
-            }
-        })
-    });
-    reader.readAsText(file);
-}
-
-function changeBackground(event) {
-    let file = event.target.files[0]
-    let reader = new FileReader();
-    reader.addEventListener('load', (load_evt) => {
-        document.getElementById('background').style.backgroundImage = 'url(' + load_evt.target.result + ')'
-    });
-    reader.readAsDataURL(file);
-}
-
-function changeColor(event) {
-    document.documentElement.style.setProperty('--main-color', event.target.value + 'e3')
-}
-
-function changeTextColor(event) {
-    document.documentElement.style.setProperty('--text-color', event.target.value)
-}
-
-function changeAgeColor(event) {
-    document.documentElement.style.setProperty('--age-color', event.target.value)
-}
-
 function createNavalMyth(age) {
     let navalMyth = createClass('div', 'naval-myth')
-    let imgInput = createClass('input', 'load-img-input')
-    imgInput.type = 'file'
-    imgInput.accept = 'image/*'
-    let img;
+    let src;
     if (age === 'heroic') {
-        img = createImgSrc(IMG_HEROIC_NAVAL)
+        src = IMG_HEROIC_NAVAL
     } else if (age === 'mythic') {
-        img = createImgSrc(IMG_MYTHIC_NAVAL)
+        src = IMG_MYTHIC_NAVAL
     }
-    img.classList.add('naval-myth-icon')
-    editableImg(navalMyth, img, imgInput)
-    navalMyth.appendChild(imgInput)
-    navalMyth.appendChild(img)
+    let portrait = createEditableImg('naval-myth', src)
     let detail = createEditableLabel(age, 'naval-myth-name', firstUcase(age) + ' Naval Myth')
+    navalMyth.appendChild(portrait)
     navalMyth.appendChild(detail)
     return navalMyth
-}
-
-function toggleNavalMyth(bool) {
-    let navalMyths = document.querySelectorAll('.naval-myth')
-    navalMyths.forEach(element => {
-        element.style.display = bool ? 'block' : 'none'
-    })
 }
