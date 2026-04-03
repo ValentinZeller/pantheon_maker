@@ -81,3 +81,46 @@
         background-color: transparent;
     }
 }
+
+button {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: #232323;
+    border: 2px solid #575757;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-bottom: 10px;
+
+    &:hover {
+        background-color: #3f3f3f;
+    }
+}
+
+#change-color {
+    background-color: var(--main-color);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--main-color) 20%, #575757);
+    }
+}
+
+#change-text-color {
+    background-color: var(--text-color);
+    color: #232323;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--text-color) 20%, #575757);
+    }
+}
+
+#change-age-color {
+    background-color: var(--age-color);
+    color: #232323;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--age-color) 20%, #575757);
+    }
+}
